@@ -1,159 +1,345 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="utf-8" />
-  <title>A-Frame Fixed Scene</title>
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.7.1/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-environment-component@1.5.x/dist/aframe-environment-component.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.6.1/dist/aframe-extras.min.js"></script>
 
-  <script src="https://aframe.io/releases/1.7.1/aframe.min.js"></script>
-  <script src="https://unpkg.com/aframe-environment-component@1.5.x/dist/aframe-environment-component.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.6.1/dist/aframe-extras.min.js"></script>
+    <script>
+      AFRAME.registerComponent("hit-box1", {
+        init: function () {
+          let visible = false;
+          const iconimage = document.getElementById("iconimage");
+          const iconcube = document.getElementById("iconcube");
+          iconcube.addEventListener("mouseup", () => {
+            if (visible == false) {
+              iconimage.emit("iconcubePush");
+              visible = true;
+            }
+          });
+        } /*
+        init: function () {
+          const aimiaimage = document.getElementById("aimiaimage");
+          const aimiamodel = document.getElementById("aimiamodel");
+          aimiamodel.addEventListener("mouseup", () => {
+            aimiaimage.emit("aimiamodelPush");
+          });
+        },*/
+      });
+    </script>
+    <script>
+      AFRAME.registerComponent("hit-box2", {/*
+        init: function () {
+          const iconimage = document.getElementById("iconimage");
+          const iconcube = document.getElementById("iconcube");
+          iconcube.addEventListener("mouseup", () => {
+            iconimage.emit("iconcubePush");
+          });
+        },*/
+        init: function () {
+          let visible = false;
+          const aimiaimage = document.getElementById("aimiaimage");
+          const aimiamodel = document.getElementById("aimiamodel");
+          aimiamodel.addEventListener("mouseup", () => {
+            if (visible == false) {
+              aimiaimage.emit("aimiamodelPush");
 
-  <script>
-    AFRAME.registerComponent("hit-box1", {
-      init: function () {
-        let visible = false;
-        this.el.addEventListener("click", () => {
-          if (!visible) {
-            document.querySelector("#iconimage").emit("iconcubePush");
-            visible = true;
-          }
-        });
-      }
-    });
+              visible = true;
+            }
+          });
+        },
+      });
+    </script>
+    <script>
+      AFRAME.registerComponent("hit-box3", {/*
+        init: function () {
+          const iconimage = document.getElementById("iconimage");
+          const iconcube = document.getElementById("iconcube");
+          iconcube.addEventListener("mouseup", () => {
+            iconimage.emit("iconcubePush");
+          });
+        },*/
+        init: function () {
+          let visible = false;
+          const koyokiimage = document.getElementById("koyokiimage");
+          const koyokimodel = document.getElementById("koyokimodel");
+          koyokimodel.addEventListener("mouseup", () => {
+            if (visible == false) {
+              koyokiimage.emit("koyokimodelPush");
 
-    AFRAME.registerComponent("hit-box2", {
-      init: function () {
-        let visible = false;
-        this.el.addEventListener("click", () => {
-          if (!visible) {
-            document.querySelector("#aimiaimage").emit("aimiamodelPush");
-            visible = true;
-          }
-        });
-      }
-    });
-
-    AFRAME.registerComponent("hit-box3", {
-      init: function () {
-        let visible = false;
-        this.el.addEventListener("click", () => {
-          if (!visible) {
-            document.querySelector("#koyokiimage").emit("koyokimodelPush");
-            visible = true;
-          }
-        });
-      }
-    });
-  </script>
-
+              visible = true;
+            }
+          });
+        },
+      });
+    </script>
+  </head>
   <style>
-    body { margin: 0; overflow: hidden; }
+    .actions {
+      position: absolute;
+      display: flex;
+      flex-direction: row;
+      bottom: 3%;
+      left: 3%;
+    }    
+    .actions .buttonUI {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .actions .button {
+      cursor: pointer;
+      background: #fff;
+      height: 40px;
+      width: 40px;
+      border-radius: 40px;
+      margin-right: 10px;
+      font-size: large;
+    }
   </style>
-</head>
 
-<body>
-<a-scene
-  fog="density:0;color:#bdaa82;far:84"
-  vr-mode-ui="enabled: true"
->
+  <body>
+    <a-scene
+      overlay-visibility=""
+      class="fullscreen"
+      fog="density:0;color:#bdaa82;far:84"
+      inspector=""
+      keyboard-shortcuts=""
+      screenshot=""
+      vr-mode-ui=""
+      ><canvas
+        class="a-canvas"
+        data-aframe-canvas="true"
+        width="300"
+        height="150"
+      ></canvas>
 
-  <!-- 環境 -->
-  <a-entity
-    environment="
-      preset: yavapai;
-      skyType: gradient;
-      skyColor: #239849;
-      horizonColor: #cfe0af;
-      fog: 0.8;
-      ground: canyon;
-      groundYScale: 9.76;
-      flatShading: true;
-    ">
-  </a-entity>
+      <!-- スカイボックス（aframe-environment-component生成） -->
+      <a-entity
+        environment="preset:              yavapai;
+                     active:              true;
+                     seed:                11;
+                     skyType:             gradient;
+                     skyColor:            #239849;
+                     horizonColor:        #cfe0af;
+                     lightPosition:       0.5 1 0;
+                     fog:                 0.8;
+                     flatShading:         true;
+                     ground:              canyon;
+                     groundYScale:        9.76;
+                     groundTexture:       walkernoise;
+                     groundColor:         #C66344;
+                     groundColor2:        #c96b4b;
+                     dressing:            stones;
+                     dressingAmount:      500;
+                     dressingColor:       #C66344;
+                     dressingScale:       0.06;
+                     dressingVariance:    0.2 0.1 0.2;
+                     dressingOnPlayArea:  1;
+                     gridColor:           #239893"
+        preset-switcher=""
+        id="environment"
+        ><a-entity
+          class="environment"
+          position="0 50 0"
+          light="intensity:0.6;color:#FFF;groundColor:#C66344;type:ambient"
+        ></a-entity
+        ><a-entity
+          rotation="-90 0 0"
+          class="environmentGround environment"
+          scale="1 1 9.76"
+          shadow="cast:false;receive:false"
+        ></a-entity
+        ><a-entity class="environmentDressing environment"></a-entity
+        ><a-sky
+          radius="200"
+          theta-length="110"
+          class="environment"
+          geometry=""
+          material="npot:false;shader:gradientshader;topColor:#239849;bottomColor:#cfe0af"
+        ></a-sky
+        ><a-entity id="stars" visible="false"></a-entity
+      ></a-entity>
 
-  <!-- Assets（すべて統合） -->
-  <a-assets>
-    <!-- textures -->
-    <img id="icontexture" src="https://cdn.glitch.global/4e992269-6dcc-48d0-bedd-55bc02f4d070/Mikaia-20200801211111.png?v=1697367845161">
-    <img id="icon-image" src="https://cdn.glitch.global/4e992269-6dcc-48d0-bedd-55bc02f4d070/mikaia4wy5hagrwv.png?v=1697367799436">
-    <img id="aimia-image" src="https://cdn.glitch.global/4e992269-6dcc-48d0-bedd-55bc02f4d070/AimiAdesign.png?v=1698176105858">
-    <img id="koyoki-image" src="https://cdn.glitch.global/4e992269-6dcc-48d0-bedd-55bc02f4d070/koyoki_design.png?v=1698176082152">
+      <!-- アイコンキューブ読み込み -->
+      <a-assets>
+        <img
+          id="icontexture"
+          src="https://cdn.glitch.global/4e992269-6dcc-48d0-bedd-55bc02f4d070/Mikaia-20200801211111.png?v=1697367845161"
+        />
+      </a-assets>
 
-    <!-- models -->
-    <a-asset-item id="AimiAModel" src="https://cdn.glitch.global/4e992269-6dcc-48d0-bedd-55bc02f4d070/AimiA06syeipu.glb?v=1697351085191"></a-asset-item>
-    <a-asset-item id="KoyokiModel" src="https://cdn.glitch.global/4e992269-6dcc-48d0-bedd-55bc02f4d070/Koyoki_AnimationFIX2.glb?v=1698169801738"></a-asset-item>
-  </a-assets>
+      <!-- アイコンキューブ説明画像読み込み -->
+      <a-assets>
+        <img
+          id="icon-image"
+          src="https://cdn.glitch.global/4e992269-6dcc-48d0-bedd-55bc02f4d070/mikaia4wy5hagrwv.png?v=1697367799436"
+        />
+             
+      <!-- 改変服モデリングデザイン画像読み込み -->
+        <img
+          id="Ousiamizugi23-image"
+          src="https://cdn.glitch.global/4e992269-6dcc-48d0-bedd-55bc02f4d070/OusiaMizugi2023design.png?v=1698178128115"
+        />
+        <img
+          id="Ousiamizugi22-image"
+          src="https://cdn.glitch.global/4e992269-6dcc-48d0-bedd-55bc02f4d070/OusiaMizugi2022design.png?v=1698178126232"
+        />
+      </a-assets>
+      <!-- アイコンキューブ -->
+      <a-entity position="0 1.7 -20">
+        <a-entity
+          animation="property: rotation; from: 0 0 0; to: 0 360 0; loop: true; dur: 10000; easing: linear;"
+        >
+          <a-box
+            id="iconcube"
+            class="raycastable"
+            src="#icontexture"
+            animation="property: rotation; from: 0 0 0; to: 360 0 0; loop: true; dur: 20000; easing: linear;"
+            material="shader: flat;"
+            hit-box1
+          ></a-box>
+        </a-entity>
+        <!-- アイコンキューブ説明画像-->
+        <a-image
+          id="iconimage"
+          position="0 2 0"
+          src="#icon-image"
+          width="4"
+          height="2"
+          opacity="0"
+          animation="property: opacity;from: 0; to: 1; dur: 3000; loop: false; easing: linear; startEvents: iconcubePush"
+        ></a-image>
+        <!-- 23年ウーシア水着画像-->
+        <a-image
+          position="2.1 4 0"
+          src="#Ousiamizugi23-image"
+          width="4"
+          height="2"
+          opacity="0"
+          animation="property: opacity;from: 0; to: 1; dur: 3000; loop: false; easing: linear;"
+        ></a-image>
+        <!-- 22年ウーシア水着画像-->
+        <a-image
+          position="-2.1 4 0"
+          src="#Ousiamizugi22-image"
+          width="4"
+          height="2"
+          opacity="0"
+          animation="property: opacity;from: 0; to: 1; dur: 3000; loop: false; easing: linear;"
+        ></a-image>
+      </a-entity>
 
-  <!-- Icon Cube -->
-  <a-entity position="0 1.7 -20">
-    <a-box
-      class="raycastable"
-      src="#icontexture"
-      animation="property: rotation; to: 0 360 0; loop: true; dur: 10000"
-      hit-box1
-    ></a-box>
+      <!-- AimiA読み込み -->
+      <a-assets>
+        <a-asset-item
+          id="AimiAModel"
+          src="https://cdn.glitch.global/4e992269-6dcc-48d0-bedd-55bc02f4d070/AimiA06syeipu.glb?v=1697351085191"
+        ></a-asset-item>
+      </a-assets>
+      
+      <!-- Koyoki読み込み -->
+      <a-assets>
+        <a-asset-item
+          id="KoyokiModel"
+          src="https://cdn.glitch.global/4e992269-6dcc-48d0-bedd-55bc02f4d070/Koyoki_AnimationFIX2.glb?v=1698169801738"
+        ></a-asset-item>
+      </a-assets>
+      <!-- こよき説明画像読み込み -->
+      <a-assets>
+        <img
+          id="koyoki-image"
+          src="https://cdn.glitch.global/4e992269-6dcc-48d0-bedd-55bc02f4d070/koyoki_design.png?v=1698176082152"
+        />
+      </a-assets>
 
-    <a-image
-      id="iconimage"
-      position="0 2 0"
-      src="#icon-image"
-      width="4"
-      height="2"
-      opacity="0"
-      animation="property: opacity; to: 1; dur: 3000; startEvents: iconcubePush"
-    ></a-image>
-  </a-entity>
+      <!-- あいみあ説明画像読み込み -->
+      <a-assets>
+        <img
+          id="aimia-image"
+          src="https://cdn.glitch.global/4e992269-6dcc-48d0-bedd-55bc02f4d070/AimiAdesign.png?v=1698176105858"
+        />
+      </a-assets>
+      
+      <!-- AimiA -->
+      <a-entity position="4 1.7 -20">
+        <a-entity
+          animation="property: rotation; from: 0 0 0; to: 0 360 0; loop: true; dur: 10000; easing: linear;"
+        >
+          <a-entity
+            id="aimiamodel"
+            class="raycastable"
+            gltf-model="#AimiAModel"
+            material="shader: flat;"
+            hit-box2
+          ></a-entity
+        ></a-entity>
+        <!-- あいみあ説明画像-->
+        <a-image
+          id="aimiaimage"
+          position="0 2 0"
+          src="#aimia-image"
+          width="4"
+          height="2"
+          opacity="0"
+          animation="property: opacity;from: 0; to: 1; dur: 3000; loop: false; easing: linear; startEvents: aimiamodelPush"
+        ></a-image>
+      </a-entity>
+      
+      <!-- Koyoki3体 -->
+      <a-entity position="-4 1 -20">
+        <a-entity
+          animation="property: rotation; from: 0 0 0; to: 0 360 0; loop: true; dur: 10000; easing: linear;"
+        >
+          <a-entity
+            id="koyokimodel"
+            class="raycastable"
+            gltf-model="#KoyokiModel"
+            material="shader: flat;"
+            scale="0.1 0.1 0.1"
+            animation-mixer="clip: idle"
+            hit-box3
+          ></a-entity
+        ></a-entity>
+      <a-entity position="1 0 0">
+        <a-entity
+          animation="property: rotation; from: 0 0 0; to: 0 360 0; loop: true; dur: 10000; easing: linear;"
+        >
+          <a-entity
+            gltf-model="#KoyokiModel"
+            material="shader: flat;"
+            scale="0.1 0.1 0.1"
+            animation-mixer="clip: Walk.001"
+          ></a-entity
+        ></a-entity></a-entity>
+      <a-entity position="-1 0 0">
+        <a-entity
+          animation="property: rotation; from: 0 0 0; to: 0 360 0; loop: true; dur: 10000; easing: linear;"
+        >
+          <a-entity
+            gltf-model="#KoyokiModel"
+            material="shader: flat;"
+            scale="0.1 0.1 0.1"
+            animation-mixer="clip: Run"
+          ></a-entity
+        ></a-entity></a-entity>
+        <!-- こよき説明画像-->
+        <a-image
+          id="koyokiimage"
+          position="0 2.7 0"
+          src="#koyoki-image"
+          width="4"
+          height="2"
+          opacity="0"
+          animation="property: opacity;from: 0; to: 1; dur: 3000; loop: false; easing: linear; startEvents: koyokimodelPush"
+        ></a-image>
+      </a-entity>
 
-  <!-- AimiA -->
-  <a-entity position="4 1.7 -20">
-    <a-entity
-      id="aimiamodel"
-      class="raycastable"
-      gltf-model="#AimiAModel"
-      animation="property: rotation; to: 0 360 0; loop: true; dur: 10000"
-      hit-box2
-    ></a-entity>
-
-    <a-image
-      id="aimiaimage"
-      position="0 2 0"
-      src="#aimia-image"
-      width="4"
-      height="2"
-      opacity="0"
-      animation="property: opacity; to: 1; dur: 3000; startEvents: aimiamodelPush"
-    ></a-image>
-  </a-entity>
-
-  <!-- Koyoki -->
-  <a-entity position="-4 1 -20">
-    <a-entity
-      id="koyokimodel"
-      class="raycastable"
-      gltf-model="#KoyokiModel"
-      scale="0.1 0.1 0.1"
-      animation-mixer="clip: idle"
-      animation="property: rotation; to: 0 360 0; loop: true; dur: 10000"
-      hit-box3
-    ></a-entity>
-
-    <a-image
-      id="koyokiimage"
-      position="0 2.7 0"
-      src="#koyoki-image"
-      width="4"
-      height="2"
-      opacity="0"
-      animation="property: opacity; to: 1; dur: 3000; startEvents: koyokimodelPush"
-    ></a-image>
-  </a-entity>
-
-  <!-- Mouse Cursor -->
-  <a-entity
-    cursor="rayOrigin: mouse"
-    raycaster="objects: .raycastable">
-  </a-entity>
-
-</a-scene>
-</body>
+      <!-- マウスカーソル -->
+      <a-entity
+        id="mouseCursor"
+        cursor="rayOrigin: mouse"
+        raycaster="objects: .raycastable"
+      ></a-entity>
+    </a-scene>
+  </body>
 </html>
